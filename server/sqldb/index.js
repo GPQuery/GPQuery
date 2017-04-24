@@ -16,6 +16,6 @@ var db = {
 };
 
 // Insert models below
-db.Thing = db.sequelize.import('../api/thing/thing.model');
+db.Country = db.sequelize.import('../api/country/country.model');
 
 module.exports = db;

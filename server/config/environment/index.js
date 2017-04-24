@@ -36,14 +36,23 @@ var all = {
     session: 'gpquery-secret'
   },
 
-  // MongoDB connection options
-  mongo: {
+  // Sequelize connection options
+  sequelize: {
+    database: process.env.SEQUELIZE_DATABASE,
+    user: process.env.SEQUELIZE_USER,
+    secret: process.env.SEQUELIZE_SECRET,
     options: {
-      db: {
-        safe: true
+      logging: console.log,
+      host: process.env.SEQUELIZE_HOST || 'localhost',
+      port: process.env.SEQUELIZE_PORT || '3306',
+      define: {
+        timestamps: false,
+        underscored: false,
+        engine: 'MyISAM'
       }
     }
   }
+
 };
 
 // Export the config object based on the NODE_ENV
