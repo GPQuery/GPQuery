@@ -5,6 +5,6 @@ import {
   UtilService
 } from './util.service';
 
-export default angular.module('gpqueryApp.util', [])
+export default angular.module('gpquery.util', [])
   .factory('Util', UtilService)
   .name;

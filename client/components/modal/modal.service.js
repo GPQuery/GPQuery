@@ -73,6 +73,6 @@ export function Modal($rootScope, $uibModal) {
   };
 }
 
-export default angular.module('gpqueryApp.Modal', [])
+export default angular.module('gpquery.Modal', [])
   .factory('Modal', Modal)
   .name;

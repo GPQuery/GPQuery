@@ -21,8 +21,20 @@ import util from '../components/util/util.module';
 
 import './app.scss';
 
-angular.module('gpqueryApp', [ngCookies, ngResource, ngSanitize, uiRouter, uiBootstrap, navbar,
-  footer, main, constants, util
+angular.module('gpqueryApp', [
+
+  ngCookies,
+  ngResource,
+  ngSanitize,
+
+  uiRouter,
+  uiBootstrap,
+
+  navbar,
+  footer,
+  main,
+  constants,
+  util
 ])
   .config(routeConfig);
 

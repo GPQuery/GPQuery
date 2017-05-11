@@ -34,7 +34,7 @@ export class MainController {
   }
 }
 
-export default angular.module('gpqueryApp.main', [uiRouter])
+export default angular.module('gpquery.main', [uiRouter])
   .config(routing)
   .component('main', {
     template: require('./main.pug'),
