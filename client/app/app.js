@@ -13,6 +13,10 @@ import {
   routeConfig
 } from './app.config';
 
+import {
+  runBlock
+} from './app.run';
+
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
 import main from './main/main.component';
@@ -36,7 +40,8 @@ angular.module('gpqueryApp', [
   constants,
   util
 ])
-  .config(routeConfig);
+  .config(routeConfig)
+  .run(runBlock);
 
 angular.element(document)
   .ready(() => {

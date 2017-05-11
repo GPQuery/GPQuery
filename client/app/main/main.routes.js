@@ -5,6 +5,14 @@ export default function routes($stateProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    template: '<main></main>'
+    template: '<main></main>',
+    resolve: {
+      pageTitle: function() {
+        return 'Home';
+      },
+      bodyClass: function() {
+        return 'page-home';
+      }
+    }
   });
 }
