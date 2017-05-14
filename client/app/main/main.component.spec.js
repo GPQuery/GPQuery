@@ -17,7 +17,7 @@ describe('Component: MainComponent', function() {
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$httpBackend_, $http, $componentController, $rootScope, $state) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/countries')
+    $httpBackend.expectGET('/api/flags')
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
     scope = $rootScope.$new();
@@ -28,10 +28,10 @@ describe('Component: MainComponent', function() {
     });
   }));
 
-  it('should attach a list of countries to the controller', function() {
+  it('should attach a list of flags to the controller', function() {
     mainComponent.$onInit();
     $httpBackend.flush();
-    expect(mainComponent.awesomeCountries.length)
+    expect(mainComponent.awesomeFlags.length)
       .to.equal(4);
   });
 });

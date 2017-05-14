@@ -16,6 +16,7 @@ var db = {
 };
 
 // Insert models below
-db.Country = db.sequelize.import('../api/country/country.model');
+db.Flag = db.sequelize.import('../api/flag/flag.model');
+db.Driver = db.sequelize.import('../api/driver/driver.model');
 
 module.exports = db;

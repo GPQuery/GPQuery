@@ -1,15 +1,15 @@
 /**
- * Country model events
+ * Flag model events
  */
 
 'use strict';
 
 import {EventEmitter} from 'events';
-var Country = require('../../sqldb').Country;
-var CountryEvents = new EventEmitter();
+var Flag = require('../../sqldb').Flag;
+var FlagEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
-CountryEvents.setMaxListeners(0);
+FlagEvents.setMaxListeners(0);
 
 // Model events
 var events = {
@@ -19,20 +19,20 @@ var events = {
 };
 
 // Register the event emitter to the model events
-function registerEvents(Country) {
+function registerEvents(Flag) {
   for(var e in events) {
     let event = events[e];
-    Country.hook(e, emitEvent(event));
+    Flag.hook(e, emitEvent(event));
   }
 }
 
 function emitEvent(event) {
   return function(doc, options, done) {
-    CountryEvents.emit(event + ':' + doc._id, doc);
-    CountryEvents.emit(event, doc);
+    FlagEvents.emit(event + ':' + doc._id, doc);
+    FlagEvents.emit(event, doc);
     done(null);
   };
 }
 
-registerEvents(Country);
-export default CountryEvents;
+registerEvents(Flag);
+export default FlagEvents;

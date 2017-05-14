@@ -5,8 +5,8 @@ import routing from './main.routes';
 export class MainController {
   $http;
 
-  awesomeCountries = [];
-  newCountry = '';
+  awesomeFlags = [];
+  newFlag = '';
 
   /*@ngInject*/
   constructor($http) {
@@ -14,23 +14,23 @@ export class MainController {
   }
 
   $onInit() {
-    this.$http.get('/api/countries')
+    this.$http.get('/api/flags')
       .then(response => {
-        this.awesomeCountries = response.data;
+        this.awesomeFlags = response.data;
       });
   }
 
-  addCountry() {
-    if(this.newCountry) {
-      this.$http.post('/api/countries', {
-        name: this.newCountry
+  addFlag() {
+    if(this.newFlag) {
+      this.$http.post('/api/flags', {
+        name: this.newFlag
       });
-      this.newCountry = '';
+      this.newFlag = '';
     }
   }
 
-  deleteCountry(country) {
-    this.$http.delete(`/api/countries/${country._id}`);
+  deleteFlag(flag) {
+    this.$http.delete(`/api/flags/${flag._id}`);
   }
 }
 

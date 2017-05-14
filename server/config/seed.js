@@ -8,7 +8,7 @@ import sqldb from '../sqldb';
 import config from './environment/';
 
 export default function seedDatabaseIfNeeded() {
-  if(config.seedDB) {
+  if(1 === 0) {
     let Country = sqldb.Country;
 
     return Country.destroy({ where: {} })
