@@ -17,7 +17,7 @@ describe('Component: MainComponent', function() {
   // Initialize the controller and a mock scope
   beforeEach(inject(function(_$httpBackend_, $http, $componentController, $rootScope, $state) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/flags')
+    $httpBackend.expectGET('/api/drivers')
       .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
 
     scope = $rootScope.$new();
@@ -28,10 +28,10 @@ describe('Component: MainComponent', function() {
     });
   }));
 
-  it('should attach a list of flags to the controller', function() {
+  it('should attach a list of drivers to the controller', function() {
     mainComponent.$onInit();
     $httpBackend.flush();
-    expect(mainComponent.awesomeFlags.length)
+    expect(mainComponent.awesomeDrivers.length)
       .to.equal(4);
   });
 });

@@ -5,8 +5,8 @@ import routing from './main.routes';
 export class MainController {
   $http;
 
-  awesomeFlags = [];
-  newFlag = '';
+  awesomeDrivers = [];
+  newDriver = '';
 
   /*@ngInject*/
   constructor($http) {
@@ -14,23 +14,23 @@ export class MainController {
   }
 
   $onInit() {
-    this.$http.get('/api/flags')
+    this.$http.get('/api/drivers')
       .then(response => {
-        this.awesomeFlags = response.data;
+        this.awesomeDrivers = response.data;
       });
   }
 
-  addFlag() {
-    if(this.newFlag) {
-      this.$http.post('/api/flags', {
-        name: this.newFlag
+  addDriver() {
+    if(this.newDriver) {
+      this.$http.post('/api/drivers', {
+        name: this.newDriver
       });
-      this.newFlag = '';
+      this.newDriver = '';
     }
   }
 
-  deleteFlag(flag) {
-    this.$http.delete(`/api/flags/${flag._id}`);
+  deleteDriver(driver) {
+    this.$http.delete(`/api/drivers/${driver._id}`);
   }
 }
 

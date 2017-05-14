@@ -8,7 +8,7 @@ header#banner.hero-unit
   .row
     .col-lg-12
       h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='flag in $ctrl.awesomeFlags')
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='driver in $ctrl.awesomeDrivers')
         li
-          a(href='#', uib-tooltip='{{flag.country}}')
-            | {{flag.demonym}}
+          a(href='#', uib-tooltip='{{driver.nationality}}')
+            | {{driver.forename}} {{driver.surname}}
