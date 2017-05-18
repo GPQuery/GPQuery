@@ -1,84 +1,135 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/races              ->  index
- * POST    /api/races              ->  create
  * GET     /api/races/:id          ->  show
- * PUT     /api/races/:id          ->  upsert
- * PATCH   /api/races/:id          ->  patch
- * DELETE  /api/races/:id          ->  destroy
+ * GET     /api/races/:year        ->  getSeason
  */
 
 'use strict';
 
-import jsonpatch from 'fast-json-patch';
 import Response from '../../components/response';
-import { Race, Circuit } from '../../sqldb';
+import {
+  Race,
+  Circuit,
+  Result,
+  Driver,
+  Constructor,
+  Status
+} from '../../sqldb';
 
-// Gets a list of Races
+const currentYear = new Date().getFullYear();
+const maxRound = 20;
+
+
+/**
+ * Gets a list of Races
+ *
+ * @param {number} [req.params.year] - Race season.
+ * @param {number} [req.params.round] - Race round.
+ * @returns {Promise}
+ */
 export function index(req, res) {
-  return Race.findAll()
+  var whereObj = {};
+  var includeArr = [{
+    model: Circuit,
+    as: 'circuit'
+  }];
+
+  if(req.params.year >= 1950 && req.params.year <= currentYear) {
+    whereObj.year = req.params.year;
+  }
+
+  if(req.params.round >= 0 && req.params.round <= maxRound) {
+    whereObj.round = req.params.round;
+  }
+
+  return Race.findAll({
+    where: whereObj,
+    include: includeArr
+  })
     .then(Response.respondWithResult(res))
     .catch(Response.handleError(res));
 }
 
-// Gets a single Race from the DB
+
+/**
+ * Gets a single Race from the DB
+ *
+ * @param {number} [req.params.year] - Race season.
+ * @param {number} [req.params.round] - Race round.
+ * @returns {Promise}
+ */
 export function show(req, res) {
-  return Race.find({
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(Response.handleEntityNotFound(res))
-    .then(Response.respondWithResult(res))
-    .catch(Response.handleError(res));
-}
+  var whereObj = {};
+  var includeArr = [{
+    model: Circuit,
+    as: 'circuit'
+  }];
 
-// Creates a new Race in the DB
-export function create(req, res) {
-  return Race.create(req.body)
-    .then(Response.respondWithResult(res, 201))
-    .catch(Response.handleError(res));
-}
-
-// Upserts the given Race in the DB at the specified ID
-export function upsert(req, res) {
-  if(req.body._id) {
-    Reflect.deleteProperty(req.body, '_id');
+  if(req.params.year >= 1950 && req.params.year <= currentYear) {
+    whereObj.year = req.params.year;
   }
 
-  return Race.upsert(req.body, {
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(Response.respondWithResult(res))
-    .catch(Response.handleError(res));
-}
-
-// Updates an existing Race in the DB
-export function patch(req, res) {
-  if(req.body._id) {
-    Reflect.deleteProperty(req.body, '_id');
+  if(req.params.round >= 0 && req.params.round <= maxRound) {
+    whereObj.round = req.params.round;
   }
+
   return Race.find({
-    where: {
-      _id: req.params.id
-    }
+    where: whereObj,
+    include: includeArr
   })
     .then(Response.handleEntityNotFound(res))
-    .then(Response.patchUpdates(req.body))
     .then(Response.respondWithResult(res))
     .catch(Response.handleError(res));
 }
 
-// Deletes a Race from the DB
-export function destroy(req, res) {
+
+/**
+ * Gets Race Results
+ *
+ * @todo
+ * I've no idea why the `Constructor` model does not work in the nested `include`, but
+ * I'm temporarily using `.then()` to query it.
+ */
+export function results(req, res) {
+  var whereObj = {};
+  var includeArr = [{
+    model: Circuit,
+    as: 'circuit'
+  }, {
+    model: Result,
+    as: 'results',
+    include: [{
+      model: Driver,
+      as: 'driver'
+    }, {
+      model: Constructor,
+      as: 'constructor'
+    }, {
+      model: Status,
+      as: 'status'
+    }]
+  }];
+
+  if(req.params.year >= 1950 && req.params.year <= currentYear) {
+    whereObj.year = req.params.year;
+  }
+
+  if(req.params.round >= 0 && req.params.round <= maxRound) {
+    whereObj.round = req.params.round;
+  }
+
+  console.log('\n\n\n');
+  console.log(req);
+  console.log('\n\n\n');
+  console.log(res);
+  console.log('\n\n\n');
+
   return Race.find({
-    where: {
-      _id: req.params.id
-    }
+    where: whereObj,
+    include: includeArr
   })
     .then(Response.handleEntityNotFound(res))
-    .then(Response.removeEntity(res))
+    .then(Response.respondWithResult(res))
     .catch(Response.handleError(res));
 }
