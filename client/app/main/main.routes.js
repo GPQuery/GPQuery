@@ -7,12 +7,8 @@ export default function routes($stateProvider) {
     url: '/',
     template: '<main></main>',
     resolve: {
-      pageTitle: function() {
-        return 'Home';
-      },
-      bodyClass: function() {
-        return 'page-home';
-      }
+      pageTitle: () => 'Home',
+      bodyClass: () => 'page-home'
     }
   });
 }
