@@ -31,4 +31,20 @@ db.Status = db.sequelize.import('../api/status/status.model');
 db.Flag = db.sequelize.import('../api/flag/flag.model');
 db.Driver = db.sequelize.import('../api/driver/driver.model');
 
+
+db.Circuit.hasMany(db.Race, { foreignKey: 'circuitId', as: 'races' });
+db.Race.belongsTo(db.Circuit, { foreignKey: 'circuitId', as: 'circuit' });
+
+db.Race.hasMany(db.Result, { foreignKey: 'raceId', as: 'results' });
+db.Result.belongsTo(db.Race, { foreignKey: 'raceId', as: 'race' });
+
+db.Driver.hasMany(db.Result, { foreignKey: 'driverId', as: 'results' });
+db.Result.belongsTo(db.Driver, { foreignKey: 'driverId', as: 'driver' });
+
+db.Constructor.hasMany(db.Result, { foreignKey: 'constructorId', as: 'results' });
+db.Result.belongsTo(db.Constructor, { foreignKey: 'constructorId', as: 'constructor' });
+
+db.Status.hasMany(db.Result, { foreignKey: 'statusId', as: 'results' });
+db.Result.belongsTo(db.Status, { foreignKey: 'statusId', as: 'status' });
+
 module.exports = db;
