@@ -1,5 +1,7 @@
 'use strict';
 
+import angular from 'angular';
+
 export function runBlock($timeout, $rootScope, $state, $stateParams) {
   'ngInject';
 
@@ -24,5 +26,4 @@ export function runBlock($timeout, $rootScope, $state, $stateParams) {
   function getBodyClass(bodyClass) {
     return angular.isFunction(bodyClass) ? bodyClass() : bodyClass;
   }
-
 }
