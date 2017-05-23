@@ -7,6 +7,7 @@
 
 'use strict';
 
+import _ from 'lodash';
 import Response from '../../components/response';
 import {
   Race,
@@ -14,7 +15,8 @@ import {
   Result,
   Driver,
   Constructor,
-  Status
+  Status,
+  Flag
 } from '../../sqldb';
 
 const currentYear = new Date().getFullYear();
@@ -32,7 +34,11 @@ export function index(req, res) {
   var whereObj = {};
   var includeArr = [{
     model: Circuit,
-    as: 'circuit'
+    as: 'Circuit',
+    include: [{
+      model: Flag,
+      as: 'Flag'
+    }]
   }];
 
   if(req.params.year >= 1950 && req.params.year <= currentYear) {
@@ -63,7 +69,11 @@ export function show(req, res) {
   var whereObj = {};
   var includeArr = [{
     model: Circuit,
-    as: 'circuit'
+    as: 'Circuit',
+    include: [{
+      model: Flag,
+      as: 'Flag'
+    }]
   }];
 
   if(req.params.year >= 1950 && req.params.year <= currentYear) {
@@ -87,27 +97,31 @@ export function show(req, res) {
 /**
  * Gets Race Results
  *
- * @todo
- * I've no idea why the `Constructor` model does not work in the nested `include`, but
- * I'm temporarily using `.then()` to query it.
+ * @param {number} [req.params.year] - Race season.
+ * @param {number} [req.params.round] - Race round.
+ * @returns {Promise}
  */
 export function results(req, res) {
   var whereObj = {};
   var includeArr = [{
     model: Circuit,
-    as: 'circuit'
+    as: 'Circuit',
+      include: [{
+        model: Flag,
+        as: 'Flag'
+    }]
   }, {
     model: Result,
-    as: 'results',
+    as: 'Results',
     include: [{
       model: Driver,
-      as: 'driver'
-    }, {
-      model: Constructor,
-      as: 'constructor'
+      as: 'Driver'
     }, {
       model: Status,
-      as: 'status'
+      as: 'Status'
+    }, {
+      model: Constructor,
+      as: 'Constructor'
     }]
   }];
 
@@ -118,12 +132,6 @@ export function results(req, res) {
   if(req.params.round >= 0 && req.params.round <= maxRound) {
     whereObj.round = req.params.round;
   }
-
-  console.log('\n\n\n');
-  console.log(req);
-  console.log('\n\n\n');
-  console.log(res);
-  console.log('\n\n\n');
 
   return Race.find({
     where: whereObj,
