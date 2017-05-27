@@ -43,7 +43,7 @@ import util from '../components/util/util.module';
 
 import './app.scss';
 
-angular.module('gpqueryApp', [
+angular.module('gpquery', [
 
   ngAnimate,
   ngAria,
@@ -71,7 +71,7 @@ angular.module('gpqueryApp', [
 
 angular.element(document)
   .ready(() => {
-    angular.bootstrap(document, ['gpqueryApp'], {
+    angular.bootstrap(document, ['gpquery'], {
       strictDi: true
     });
   });
