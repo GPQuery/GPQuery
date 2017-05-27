@@ -1,11 +1,13 @@
 'use strict';
 
 import angular from 'angular';
-// import ngAnimate from 'angular-animate';
+import ngAnimate from 'angular-animate';
+import ngAria from 'angular-aria';
 import ngCookies from 'angular-cookies';
 import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
-
+import ngTouch from 'angular-touch';
+import angularLoadingBar from 'angular-loading-bar';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 
@@ -27,10 +29,14 @@ import './app.scss';
 
 angular.module('gpqueryApp', [
 
+  ngAnimate,
+  ngAria,
   ngCookies,
   ngResource,
   ngSanitize,
+  ngTouch,
 
+  angularLoadingBar,
   uiRouter,
   uiBootstrap,
 
