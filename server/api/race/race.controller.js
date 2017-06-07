@@ -1,8 +1,11 @@
 /**
+ * Race Controller
+ *
+ * @description
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/races              ->  index
- * GET     /api/races/:id          ->  show
- * GET     /api/races/:year        ->  getSeason
+ * GET     /api/races/:year/:round ->  show
+ * GET     /api/races/:year        ->  getByYear
  */
 
 'use strict';
@@ -32,6 +35,10 @@ const maxRound = 20;
  */
 export function index(req, res) {
   var whereObj = {};
+  var orderArr = [
+    ['year', 'DESC'],
+    ['round', 'ASC']
+  ];
   var includeArr = [{
     model: Circuit,
     as: 'Circuit',
@@ -41,17 +48,46 @@ export function index(req, res) {
     }]
   }];
 
+  return Race.findAll({
+    where: whereObj,
+    include: includeArr,
+    order: orderArr
+  })
+    .then(Response.respondWithResult(res))
+    .catch(Response.handleError(res));
+}
+
+
+/**
+ * Gets a list of Races by Year
+ *
+ * @param {number} [req.params.year] - Race season.
+ * @returns {Promise}
+ */
+export function getByYear(req, res) {
+  var whereObj = {};
+  var orderArr = [
+    ['year', 'DESC'],
+    ['round', 'ASC']
+  ];
+  var includeArr = [{
+    model: Circuit,
+    as: 'Circuit',
+    include: [{
+      model: Flag,
+      as: 'Flag'
+    }]
+  }];
+
+  // Ensure `year` value is within bounds
   if(req.params.year >= 1950 && req.params.year <= currentYear) {
     whereObj.year = req.params.year;
   }
 
-  if(req.params.round >= 0 && req.params.round <= maxRound) {
-    whereObj.round = req.params.round;
-  }
-
   return Race.findAll({
     where: whereObj,
-    include: includeArr
+    include: includeArr,
+    order: orderArr
   })
     .then(Response.respondWithResult(res))
     .catch(Response.handleError(res));
@@ -67,6 +103,10 @@ export function index(req, res) {
  */
 export function show(req, res) {
   var whereObj = {};
+  var orderArr = [
+    ['year', 'DESC'],
+    ['round', 'ASC']
+  ];
   var includeArr = [{
     model: Circuit,
     as: 'Circuit',
@@ -76,17 +116,18 @@ export function show(req, res) {
     }]
   }];
 
+  // Ensure `year` and `round` values are within bounds
   if(req.params.year >= 1950 && req.params.year <= currentYear) {
     whereObj.year = req.params.year;
   }
-
   if(req.params.round >= 0 && req.params.round <= maxRound) {
     whereObj.round = req.params.round;
   }
 
   return Race.find({
     where: whereObj,
-    include: includeArr
+    include: includeArr,
+    order: orderArr
   })
     .then(Response.handleEntityNotFound(res))
     .then(Response.respondWithResult(res))
@@ -95,47 +136,75 @@ export function show(req, res) {
 
 
 /**
- * Gets Race Results
+ * Gets a single Race and its Results from the DB
  *
  * @param {number} [req.params.year] - Race season.
  * @param {number} [req.params.round] - Race round.
  * @returns {Promise}
  */
-export function results(req, res) {
+export function getResults(req, res) {
   var whereObj = {};
-  var includeArr = [{
-    model: Circuit,
-    as: 'Circuit',
+  var orderArr = [
+    ['year', 'DESC'],
+    ['round', 'ASC']
+  ];
+  var includeArr = [];
+
+  includeArr.push(
+    {
+      model: Circuit,
+      as: 'Circuit',
       include: [{
         model: Flag,
         as: 'Flag'
-    }]
-  }, {
-    model: Result,
-    as: 'Results',
-    include: [{
-      model: Driver,
-      as: 'Driver'
-    }, {
-      model: Status,
-      as: 'Status'
-    }, {
-      model: Constructor,
-      as: 'Constructor'
-    }]
-  }];
+      }]
+    }
+  );
 
+  includeArr.push(
+    {
+      model: Result,
+      as: 'Results',
+      include: [
+        {
+          model: Driver,
+          as: 'Driver',
+          include: [{
+            model: Flag,
+            as: 'Flag'
+          }]
+        },
+        {
+          model: Constructor,
+          as: 'Constructor',
+          include: [{
+            model: Flag,
+            as: 'Flag'
+          }]
+        },
+        {
+          model: Status,
+          as: 'Status'
+        }
+      ],
+      order: [
+        ['Result', 'positionOrder', 'ASC']
+      ]
+    }
+  );
+
+  // Ensure `year` and `round` values are within bounds
   if(req.params.year >= 1950 && req.params.year <= currentYear) {
     whereObj.year = req.params.year;
   }
-
   if(req.params.round >= 0 && req.params.round <= maxRound) {
     whereObj.round = req.params.round;
   }
 
   return Race.find({
     where: whereObj,
-    include: includeArr
+    include: includeArr,
+    order: orderArr
   })
     .then(Response.handleEntityNotFound(res))
     .then(Response.respondWithResult(res))

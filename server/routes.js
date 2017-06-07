@@ -19,7 +19,7 @@ export default function(app) {
   app.use('/api/driverStandings', require('./api/driverStanding'));
 
   app.use('/api/seasons', require('./api/season'));
-  app.use('/api/flags', require('./api/flag'));
+  //app.use('/api/flags', require('./api/flag'));
   app.use('/api/circuits', require('./api/circuit'));
   app.use('/api/races', require('./api/race'));
 
@@ -28,6 +28,8 @@ export default function(app) {
 
   app.use('/api/lapTimes', require('./api/lapTime'));
   app.use('/api/pitStops', require('./api/pitStop'));
+
+  app.use('/api/', require('./api/race'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

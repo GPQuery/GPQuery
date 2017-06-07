@@ -39,67 +39,150 @@ db.Result.addScope('defaultScope', {
   }]
 }, { override: true });
 
-// Circuit-Race Relation
+
+//  Relations
+// ------------------------------
+
+/**
+ * Season-Race Relation
+ *
+ * @description
+ * `Season` hasMany `Race` as `Races` with key `year`
+ */
+db.Season.hasMany(db.Race, {
+  foreignKey:   'year',
+  sourceKey:    'year',
+  as:           'Races'
+});
+
+/**
+ * Race-Season Relation
+ *
+ * @description
+ * `Race` belongsTo `Season` as `Season` with key `year`
+ */
+db.Race.belongsTo(db.Season, {
+  foreignKey:   'year',
+  sourceKey:    'year',
+  as:           'Season'
+});
+
+/**
+ * Circuit-Race Relation
+ *
+ * @description
+ * `Circuit` hasMany `Race` as `Races` with key `circuitId`
+ */
 db.Circuit.hasMany(db.Race, {
   foreignKey:  'circuitId',
   as:          'Races'
 });
 
-// Race-Circuit Relation
+/**
+ * Race-Circuit Relation
+ *
+ * @description
+ * `Race` belongsTo `Circuit` as `Circuit` with key `circuitId`
+ */
 db.Race.belongsTo(db.Circuit, {
   foreignKey:  'circuitId',
   as:          'Circuit'
 });
 
-// Race-Result Relation
+/**
+ * Race-Result Relation
+ *
+ * @description
+ * `Race` hasMany `Result` as `Results` with key `raceId`
+ */
 db.Race.hasMany(db.Result, {
   foreignKey:  'raceId',
   as:          'Results'
 });
 
-// Result-Race Relation
+/**
+ * Result-Race Relation
+ *
+ * @description
+ * `Result` belongsTo `Race` as `Race` with key `raceId`
+ */
 db.Result.belongsTo(db.Race, {
   foreignKey:  'raceId',
   as:          'Race'
 });
 
-// Driver-Result Relation
+/**
+ * Driver-Result Relation
+ *
+ * @description
+ * `Driver` hasMany `Result` as `Results` with key `driverId`
+ */
 db.Driver.hasMany(db.Result, {
   foreignKey:  'driverId',
   as:          'Results'
 });
 
-// Result-Driver Relation
+/**
+ * Result-Driver Relation
+ *
+ * @description
+ * `Result` belongsTo `Driver` as `Driver` with key `driverId`
+ */
 db.Result.belongsTo(db.Driver, {
   foreignKey:  'driverId',
   as:          'Driver'
 });
 
-// Constructor-Result Relation
+/**
+ * Constructor-Result Relation
+ *
+ * @description
+ * `Constructor` hasMany `Result` as `Results` with key `constructorId`
+ */
 db.Constructor.hasMany(db.Result, {
   foreignKey:  'constructorId',
   as:          'Results'
 });
 
-// Result-Constructor Relation
+/**
+ * Result-Constructor Relation
+ *
+ * @description
+ * `Result` belongsTo `Constructor` as `Constructor` with key `constructorId`
+ */
 db.Result.belongsTo(db.Constructor, {
   foreignKey:  'constructorId',
   as:          'Constructor'
 });
 
-// Status-Result Relation
+/**
+ * Status-Result Relation
+ *
+ * @description
+ * `Status` hasMany `Result` as `Results` with key `statusId`
+ */
 db.Status.hasMany(db.Result, {
   foreignKey:  'statusId',
   as:          'Results'
 });
 
-// Result-Status Relation
+/**
+ * Result-Status Relation
+ *
+ * @description
+ * `Result` belongsTo `Status` as `Status` with key `statusId`
+ */
 db.Result.belongsTo(db.Status, {
   foreignKey:  'statusId',
   as:          'Status'
 });
 
-// Driver-Results-Constructor Relation
+/**
+ * Driver-Constructor Relation
+ *
+ * `Driver` belongsToMany `Constructor` through `Results` as `Constructors`
+ * with keys `driverId` and `constructorId`
+ */
 db.Driver.belongsToMany(db.Constructor, {
   through:    db.Result,
   as:         'Constructors',
@@ -107,7 +190,12 @@ db.Driver.belongsToMany(db.Constructor, {
   otherKey:   'constructorId'
 });
 
-// Constructor-Results-Driver Relation
+/**
+ * Constructor-Driver Relation
+ *
+ * `Constructor` belongsToMany `Driver` through `Results` as `Drivers`
+ * with keys `constructorId` and `driverId`
+ */
 db.Constructor.belongsToMany(db.Driver, {
   through:    db.Result,
   as:         'Drivers',

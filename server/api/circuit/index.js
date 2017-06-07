@@ -6,6 +6,6 @@ var controller = require('./circuit.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
-router.get('/:id', controller.show);
+router.get('/:circuitRef', controller.show);
 
 module.exports = router;

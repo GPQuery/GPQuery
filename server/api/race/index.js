@@ -6,8 +6,10 @@ var controller = require('./race.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
-router.get('/:year', controller.index);
+router.get('/:year/races', controller.getByYear);
+
 router.get('/:year/:round', controller.show);
-router.get('/:year/:round/results', controller.results);
+
+router.get('/:year/:round/results', controller.getResults);
 
 module.exports = router;
