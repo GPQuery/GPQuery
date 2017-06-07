@@ -1,26 +1,63 @@
-# EditorConfig helps developers define and maintain consistent
-# coding styles between different editors and IDEs
-# editorconfig.org
+# ===============================
+#   Editorconfig by Joho
+# ===============================
+# Version   v0.3.0
+# Author    Jonathan Ho <joho@joho.io>
+# Created   29-Jun-2016
+# Updated   07-Jun-2017
+# Docs      http://editorconfig.org
+# ===============================
+
+
+
+
+# -------------------------------
+#   Topmost Editorconfig File
+# -------------------------------
 
 root = true
 
+# -------------------------------
+
+
+
+
+# -------------------------------
+#   All Files
+# -------------------------------
 
 [*]
-
-# Change these settings to your own preference
+charset = utf-8
+end_of_line = lf
 indent_style = space
 indent_size = 2
-
-# We recommend you to keep these unchanged
-end_of_line = lf
-charset = utf-8
-trim_trailing_whitespace = true
 insert_final_newline = true
+trim_trailing_whitespace = true
+
+# -------------------------------
+
+
+
+
+# -------------------------------
+#   Markdown Files
+# -------------------------------
 
 [*.md]
 trim_trailing_whitespace = false
 indent_size = 4
 
+# -------------------------------
+
+
+
+
+# -------------------------------
+#   JSON Files
+# -------------------------------
+
 [*.json]
 indent_style = tab
 indent_size = 4
+
+# -------------------------------
