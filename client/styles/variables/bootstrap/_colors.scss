@@ -1,0 +1,70 @@
+////
+/// Bootstrap Variables
+///
+/// Colours for Bootstrap GPQuery theme
+///
+/// @group variables
+/// @author Jonathan Ho <joho@joho.io>
+////
+
+
+
+
+
+/* Greys
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+/// Base Grey (#000)
+/// @type Color
+$gray-base: #000;
+
+/// Darker Grey (#222)
+/// @type Color
+$gray-darker: lighten($gray-base, 13.5%);
+
+/// Dark Grey (#333)
+/// @type Color
+$gray-dark: lighten($gray-base, 20%);
+
+/// Medium Grey (#555)
+/// @type Color
+$gray: lighten($gray-base, 33.5%);
+
+/// Light Grey (#777)
+/// @type Color
+$gray-light: lighten($gray-base, 46.7%);
+
+/// Lighter Grey (#eee)
+/// @type Color
+$gray-lighter: lighten($gray-base, 93.5%);
+
+/// Base White (#fff)
+/// @type Color
+$white-base: #fff;
+
+
+
+
+
+/* Brand Colours
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+/// Brand Primary Color
+/// @type Color
+$brand-primary: #002D59;
+
+/// Brand Success Color
+/// @type Color
+$brand-success: #005C3C;
+
+/// Brand Info Color
+/// @type Color
+$brand-info: #6DC9F2;
+
+/// Brand Warning Color
+/// @type Color
+$brand-warning: #896900;
+
+/// Brand Danger Color
+/// @type Color
+$brand-danger: #E4032C;

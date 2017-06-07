@@ -4,7 +4,7 @@ $icon-font-path: '/assets/fonts/bootstrap/';
 //  Variables
 // ------------------------------
 
-@import '../styles/variables/bootstrap-overrides';
+@import '../styles/variables/variables';
 
 //  Utilities Mixins
 // ------------------------------
@@ -143,7 +143,10 @@ $fa-font-path: '/assets/fonts/font-awesome/';
 // ------------------------------
 
 /* inject:scss */
+@import 'drivers/drivers';
 @import 'main/main';
+@import 'race/race/race';
+@import 'race/races/races';
 @import '../components/footer/footer';
 @import '../components/modal/modal';
 /* endinject */
