@@ -183,12 +183,12 @@ db.Result.belongsTo(db.Status, {
  * `Driver` belongsToMany `Constructor` through `Results` as `Constructors`
  * with keys `driverId` and `constructorId`
  */
-db.Driver.belongsToMany(db.Constructor, {
-  through:    db.Result,
-  as:         'Constructors',
-  foreignKey: 'driverId',
-  otherKey:   'constructorId'
-});
+//db.Driver.belongsToMany(db.Constructor, {
+//  through:    db.Result,
+//  as:         'Constructors',
+//  foreignKey: 'driverId',
+//  otherKey:   'constructorId'
+//});
 
 /**
  * Constructor-Driver Relation
@@ -196,11 +196,77 @@ db.Driver.belongsToMany(db.Constructor, {
  * `Constructor` belongsToMany `Driver` through `Results` as `Drivers`
  * with keys `constructorId` and `driverId`
  */
-db.Constructor.belongsToMany(db.Driver, {
-  through:    db.Result,
-  as:         'Drivers',
-  foreignKey: 'constructorId',
-  otherKey:   'driverId'
+//db.Constructor.belongsToMany(db.Driver, {
+//  through:    db.Result,
+//  as:         'Drivers',
+//  foreignKey: 'constructorId',
+//  otherKey:   'driverId'
+//});
+
+/**
+ * Race-Qualifying Relation
+ *
+ * @description
+ * `Race` hasMany `Qualifying` as `QualifyingResults` with key `raceId`
+ */
+db.Race.hasMany(db.Qualifying, {
+  foreignKey:  'raceId',
+  as:          'QualifyingResults'
+});
+
+/**
+ * Qualifying-Race Relation
+ *
+ * @description
+ * `Qualifying` belongsTo `Race` as `Race` with key `raceId`
+ */
+db.Qualifying.belongsTo(db.Race, {
+  foreignKey:  'raceId',
+  as:          'Race'
+});
+
+/**
+ * Driver-Qualifying Relation
+ *
+ * @description
+ * `Driver` hasMany `Qualifying` as `QualifyingResults` with key `driverId`
+ */
+db.Driver.hasMany(db.Qualifying, {
+  foreignKey:  'driverId',
+  as:          'QualifyingResults'
+});
+
+/**
+ * Qualifying-Driver Relation
+ *
+ * @description
+ * `Qualifying` belongsTo `Driver` as `Driver` with key `driverId`
+ */
+db.Qualifying.belongsTo(db.Driver, {
+  foreignKey:  'driverId',
+  as:          'Driver'
+});
+
+/**
+ * Constructor-Qualifying Relation
+ *
+ * @description
+ * `Constructor` hasMany `Qualifying` as `QualifyingResults` with key `constructorId`
+ */
+db.Constructor.hasMany(db.Qualifying, {
+  foreignKey:  'constructorId',
+  as:          'QualifyingResults'
+});
+
+/**
+ * Qualifying-Constructor Relation
+ *
+ * @description
+ * `Qualifying` belongsTo `Constructor` as `Constructor` with key `constructorId`
+ */
+db.Qualifying.belongsTo(db.Constructor, {
+  foreignKey:  'constructorId',
+  as:          'Constructor'
 });
 
 

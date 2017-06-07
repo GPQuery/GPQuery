@@ -9,14 +9,22 @@
 import Response from '../../components/response';
 import {Qualifying} from '../../sqldb';
 
-// Gets a list of Qualifyings
+/**
+ * Gets a list of Qualifying Results
+ *
+ * @returns {Promise}
+ */
 export function index(req, res) {
   return Qualifying.findAll()
     .then(Response.respondWithResult(res))
     .catch(Response.handleError(res));
 }
 
-// Gets a single Qualifying from the DB
+/**
+ * Gets a single Qualifying Result from the DB
+ *
+ * @returns {Promise}
+ */
 export function show(req, res) {
   return Qualifying.find({
     where: {
