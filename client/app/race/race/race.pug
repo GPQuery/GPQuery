@@ -1,0 +1,24 @@
+.container
+  .row
+    .col-lg-12
+      h1.page-header {{ $ctrl.raceData.year }}  {{ $ctrl.raceData.name }}
+      table.table.table-striped.table-hover
+        thead
+        tbody
+          tr(ng-repeat="result in $ctrl.raceData.Results")
+            td {{ result.positionText }}
+            td {{ result.number }}
+            td {{ result.Driver.surname }}, {{ result.Driver.forename }}
+              span.hidden {{ result.Driver.Flag.iso2 }}
+            td {{ result.Constructor.name }}
+              span.hidden {{ result.Constructor.Flag.iso2 }}
+            td {{ result.laps }}
+            //-td(ng-bind="result.statusId == 1 ? result.time : result.Status.status")
+            td {{ result.statusId == 1 ? result.time : result.Status.status }}
+            td {{ result.grid }}
+            td {{ result.points }}
+//-div.panel.panel-default
+//-  div.panel-heading
+//-    h3.panel-title {{ $ctrl.raceData.name }}
+//-  div.panel-body {{ $ctrl.raceData.Circuit.Flag.iso2 }}
+//-  div.panel-footer {{ $ctrl.raceData.Circuit.name }}

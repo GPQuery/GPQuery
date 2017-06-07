@@ -5,32 +5,21 @@ import routing from './main.routes';
 export class MainController {
   $http;
 
-  awesomeDrivers = [];
-  newDriver = '';
+  year = '';
+  raceList = [];
 
   /*@ngInject*/
-  constructor($http) {
+  constructor($http, $log) {
     this.$http = $http;
+    this.$log = $log;
   }
 
   $onInit() {
-    this.$http.get('/api/drivers')
-      .then(response => {
-        this.awesomeDrivers = response.data;
-      });
-  }
-
-  addDriver() {
-    if(this.newDriver) {
-      this.$http.post('/api/drivers', {
-        name: this.newDriver
-      });
-      this.newDriver = '';
-    }
-  }
-
-  deleteDriver(driver) {
-    this.$http.delete(`/api/drivers/${driver._id}`);
+    this.$log.info('MainController');
+    this.$http.get('/api/seasons/schedule/2012').then(response => {
+      this.year = response.data.year
+      this.raceList = response.data.Races;
+    });
   }
 }
 

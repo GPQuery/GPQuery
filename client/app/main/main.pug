@@ -1,14 +1,38 @@
-header#banner.hero-unit
+//-header#banner.hero-unit
   .container
     h1 'Allo, 'Allo!
     p.lead Kick-start your next web app with Angular Fullstack
     img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
 
-.container
+//-.container
   .row
     .col-lg-12
       h1.page-header Features:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='driver in $ctrl.awesomeDrivers')
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-sm-6(ng-repeat='driver in $ctrl.awesomeDrivers')
         li
           a(href='#', uib-tooltip='{{driver.nationality}}')
             | {{driver.forename}} {{driver.surname}}
+.container
+  .row
+    .col-lg-12
+      h1.page-header {{ $ctrl.year }} Season Schedule
+      table.table.table-condensed.table-striped.table-hover
+        thead
+          tr
+            th Year
+            th.text-right Rnd
+            th Race
+            th Circuit
+            th Location
+            th Date
+            th Time
+        tbody
+          tr(ng-repeat="race in $ctrl.raceList")
+            td {{ race.year }}
+            td.text-right {{ race.round }}
+            td {{ race.name }}
+              span.hidden {{ race.Circuit.Flag.iso2 }}
+            td {{ race.Circuit.name }}
+            td {{ race.Circuit.location }}, {{ race.Circuit.country }}
+            td {{ race.date }}
+            td {{ race.time }}

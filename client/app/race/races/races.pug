@@ -1,0 +1,35 @@
+header#banner.hero-unit
+  .container
+    h1 Races
+    p.lead This is the Races view
+
+.container
+  .row
+    .col-lg-12
+      h1.page-header Races:
+      table.table.table-striped.table-hover
+        thead
+        tbody
+          tr(ng-repeat="race in $ctrl.races")
+            td {{ race.year }}
+            td.text-right {{ race.round }}
+            td {{ race.name }}
+              span.hidden {{ race.Circuit.Flag.iso2 }}
+            td {{ race.Circuit.name }}
+            td {{ race.Circuit.location }}, {{ race.Circuit.country }}
+            td {{ race.date }}
+            td {{ race.time }}
+//-div.races.container
+  .row
+    .col-lg-12
+
+  ul.races-list
+    li(ng-repeat="race in $ctrl.races.data")
+
+      //-race(
+        race="race"
+        on-select="$ctrl.goToRace($event);")
+  //-div.races__empty(
+    ng-if="!$ctrl.filteredRaces.length")
+    i.material-icons face
+    | No races but us here!

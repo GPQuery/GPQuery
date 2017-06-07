@@ -31,11 +31,19 @@ import { runBlock } from './app.run';
 //  Components
 // ------------------------------
 
+//import Data from '../components/data/data.module';
 import navbar from '../components/navbar/navbar.component';
 import footer from '../components/footer/footer.component';
-import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
+
+
+//  Feature Modules
+// ------------------------------
+
+import main from './main/main.component';
+import drivers from './drivers/drivers.component';
+import { race } from './race/race.module';
 
 
 //  Styles
@@ -56,9 +64,12 @@ angular.module('gpquery', [
   uiRouter,
   uiBootstrap,
 
+  race,
+  drivers,
+  main,
+
   navbar,
   footer,
-  main,
   constants,
   util
 ])

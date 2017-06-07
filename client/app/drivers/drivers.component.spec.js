@@ -1,16 +1,16 @@
 'use strict';
 
-import main from './main.component';
+import drivers from './drivers.component';
 import {
-  MainController
-} from './main.component';
+  DriversController
+} from './drivers.component';
 
-describe('Component: MainComponent', function() {
-  beforeEach(angular.mock.module(main));
+describe('Component: DriversComponent', function() {
+  beforeEach(angular.mock.module(drivers));
   beforeEach(angular.mock.module('stateMock'));
 
   var scope;
-  var mainComponent;
+  var driversComponent;
   var state;
   var $httpBackend;
 
@@ -22,16 +22,16 @@ describe('Component: MainComponent', function() {
 
     scope = $rootScope.$new();
     state = $state;
-    mainComponent = $componentController('main', {
+    driversComponent = $componentController('drivers', {
       $http,
       $scope: scope
     });
   }));
 
   it('should attach a list of drivers to the controller', function() {
-    mainComponent.$onInit();
+    driversComponent.$onInit();
     $httpBackend.flush();
-    expect(mainComponent.awesomeDrivers.length)
+    expect(driversComponent.awesomeDrivers.length)
       .to.equal(4);
   });
 });
